@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f6f3ed" />
+  <meta name="description" content="Откройте историю Пятигорска: от крепости 1780 года до города-курорта. Интерактивная лента времени, достопримечательности и история Лермонтова в аниме-стиле." />
+  <title>История Пятигорска — город, вдохновлённый горами</title>
+  <style>
+  :root{--paper:#f8f5ee;--paper-2:#fffdf8;--ink:#24364d;--muted:#637188;--line:#e8e5df;--gold:#dfb67d;--gold-dark:#986b3c;--blue:#dfeefa;--shadow:0 22px 65px rgba(33,58,86,.11);--heading:Georgia,'Times New Roman',serif;--sans:'Segoe UI',Arial,sans-serif}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:90px}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body.night{--paper:#142437;--paper-2:#1d3044;--ink:#eef4fb;--muted:#c1cee0;--line:#35495f;--gold:#f0c891;--gold-dark:#f1c998;--blue:#264157;--shadow:0 22px 65px rgba(0,0,0,.19)}
+  body.night .white-bg{background:var(--paper-2)}
+  button,a{font:inherit}a{color:inherit;text-decoration:none}button{cursor:pointer}img{max-width:100%;display:block}button:focus-visible,a:focus-visible{outline:3px solid #5eaada;outline-offset:4px}
+  .container{width:min(1180px,calc(100% - 48px));margin-inline:auto}
+  .eyebrow{font-size:11px;letter-spacing:.23em;text-transform:uppercase;font-weight:800;color:var(--gold-dark)}
+  .section{padding:105px 0;position:relative}.section-title{font-family:var(--heading);font-size:clamp(36px,4.5vw,60px);line-height:1.11;font-weight:400;letter-spacing:-.035em;margin:10px 0 16px}.section-description{font-size:16px;line-height:1.8;color:var(--muted);max-width:580px;margin:0}
+  .topbar{position:fixed;inset:0 0 auto;height:79px;z-index:20;background:rgba(250,248,243,.88);backdrop-filter:blur(17px);border-bottom:1px solid rgba(141,159,176,.16);transition:background .3s,box-shadow .3s}
+  .topbar.scrolled{box-shadow:0 10px 35px rgba(25,43,59,.07)}body.night .topbar{background:rgba(21,38,54,.88)}
+  .nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--heading);font-size:23px;letter-spacing:-.04em;font-weight:700;white-space:nowrap}.brand svg{width:42px;height:36px}.brand small{display:block;font:600 9px var(--sans);letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-top:1px}
+  .navlinks{display:flex;align-items:center;gap:30px;margin-left:auto}.navlinks a{font-size:13px;font-weight:650;color:var(--muted);transition:color .2s}.navlinks a:hover,.navlinks a.active{color:var(--gold-dark)}
+  .nav-actions{display:flex;align-items:center;gap:10px}
+  .iconbtn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:var(--paper-2);color:var(--ink);transition:transform .2s,background .2s}.iconbtn:hover{transform:translateY(-2px);background:var(--blue)}.iconbtn svg{width:18px;height:18px}
+  .menu-btn{display:none}
+  .hero{min-height:710px;padding:155px 0 70px;position:relative;overflow:hidden;background:radial-gradient(circle at 10% 12%,#e8f4fd 0,transparent 36%),linear-gradient(135deg,#f8f8f3 0,#fff7ee 58%,#edf2f8 100%)}body.night .hero{background:linear-gradient(130deg,#182a3f 0%,#263954 68%,#1e3046 100%)}
+  .hero:after{content:'';position:absolute;inset:auto 0 0;height:88px;background:linear-gradient(transparent,var(--paper));pointer-events:none}
+  .hero-grid{display:grid;grid-template-columns:51% 49%;align-items:center;position:relative;z-index:1}
+  .hero-copy{padding:15px 30px 50px 0;position:relative;z-index:2}
+  .hero-label{display:inline-flex;align-items:center;gap:9px;background:#fff9ee;border:1px solid #f0dec1;padding:10px 15px;border-radius:100px;font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:750;color:#a77b4b;margin-bottom:28px;box-shadow:0 7px 25px rgba(123,90,48,.07)}body.night .hero-label{background:#28384b}
+  .hero-label .star{font-size:17px;color:#cfaa7b}
+  .hero h1{font-family:var(--heading);font-weight:400;font-size:clamp(60px,6.9vw,105px);line-height:.97;letter-spacing:-.065em;margin:0 0 27px}
+  .hero h1 em{display:block;font-weight:400;font-style:italic;color:#c6a276;letter-spacing:-.05em;font-size:.63em;line-height:1.36}
+  .hero-lead{max-width:465px;color:var(--muted);font-size:17px;line-height:1.8;margin:0 0 30px}
+  .hero-buttons{display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+  .button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:14px 24px;border-radius:100px;border:1px solid transparent;font-weight:750;font-size:13px;transition:transform .25s,box-shadow .25s,background .25s}
+  .button:hover{transform:translateY(-3px)}.button.primary{background:#d8ad76;color:#1f3549;box-shadow:0 13px 27px rgba(155,115,73,.2)}.button.primary:hover{background:#e8bd88;box-shadow:0 17px 32px rgba(155,115,73,.26)}.button.ghost{border-color:#d5dfe7;color:var(--ink);background:rgba(255,255,255,.53)}body.night .button.ghost{background:#233a50}
+  .hero-stats{display:flex;align-items:center;gap:23px;margin-top:49px}.hero-stat{display:flex;flex-direction:column;gap:4px}.hero-stat b{font-family:var(--heading);font-size:27px;font-weight:500}.hero-stat small{font-size:11px;color:var(--muted);line-height:1.4}.stat-separator{width:1px;height:35px;background:#d7d7d7}
+  .hero-visual{height:530px;position:relative;padding:7px 0 0 22px}
+  .visual-frame{position:absolute;inset:11px 0 18px 15px;overflow:hidden;border-radius:49% 49% 21px 21px/40% 40% 21px 21px;box-shadow:0 35px 75px rgba(32,69,103,.21);background:#9dc6e2;isolation:isolate;transform:rotate(1deg)}
+  .visual-frame img{width:100%;height:100%;object-fit:cover;object-position:55% 50%;transform:scale(1.22);transition:transform 1.1s cubic-bezier(.18,.7,.2,1)}.visual-frame:hover img{transform:scale(1.29)}
+  .visual-frame:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,29,63,.08),transparent 45%,rgba(15,38,57,.14))}
+  .visual-glow{position:absolute;inset:-22px 12px auto 10px;height:280px;border:2px solid rgba(222,175,109,.65);border-radius:50% 50% 0 0;z-index:-1;transform:rotate(-6deg)}
+  .floating-note{position:absolute;left:-19px;top:90px;background:var(--paper-2);border:1px solid var(--line);border-radius:18px;padding:15px 18px;box-shadow:var(--shadow);z-index:3;max-width:184px;animation:float 6s ease-in-out infinite}.floating-note strong{font:500 28px var(--heading);display:block}.floating-note span{font-size:11px;color:var(--muted);line-height:1.5}
+  .floating-chip{position:absolute;bottom:55px;right:-25px;background:var(--paper-2);border:1px solid var(--line);z-index:3;box-shadow:var(--shadow);padding:13px 18px;border-radius:14px;font-size:12px;font-weight:700;animation:float 7s ease-in-out -2.7s infinite}.floating-chip span{color:var(--gold-dark)}
+  .petal{position:absolute;pointer-events:none;z-index:3;border-radius:70% 0 70% 0;background:linear-gradient(125deg,#ffcad9,#fff2df);box-shadow:0 2px 8px #ee99ad2c;opacity:.8;animation:drift var(--duration,9s) linear infinite;transform:rotate(25deg)}
+  @keyframes drift{from{transform:translate3d(0,-20px,0) rotate(12deg)}to{transform:translate3d(-110px,440px,0) rotate(460deg);opacity:.04}}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+  .ribbon{background:#193c5d;color:#dceaf5;padding:19px 0}.ribbon .container{display:flex;align-items:center;justify-content:center;gap:22px;text-align:center}.ribbon span{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:650}.ribbon .ornament{color:#e1be83;font-size:19px}
+  .intro{background:var(--paper-2)}.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}.intro-media{position:relative}.intro-media img{height:350px;width:100%;object-fit:cover;border-radius:30px;box-shadow:var(--shadow)}.intro-media:before{content:'';position:absolute;z-index:0;inset:23px -22px -23px 23px;border:1px solid #d4b68d;border-radius:32px}.intro-media img{position:relative;z-index:1}.intro-quote{font:italic 20px/1.5 var(--heading);color:var(--gold-dark);margin-top:28px;max-width:450px}
+  .timeline-section{background:linear-gradient(160deg,#132d4c 0%,#1b466d 56%,#243f65 100%);color:#fff;overflow:hidden}.timeline-section:before{content:'';position:absolute;inset:0;opacity:.12;background:radial-gradient(ellipse at 100% 1%,#8ebceb,transparent 45%),radial-gradient(ellipse at 0 110%,#d9b47c,transparent 45%);pointer-events:none}
+  .timeline-section .eyebrow{color:#f0c996}.timeline-section .section-description{color:#c0d1df}.timeline-section .container{position:relative;z-index:2}
+  .timeline-rail{display:flex;gap:8px;padding:16px 0 22px;margin:37px 0 18px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:#6685a1 transparent}
+  .year-pill{flex:1 0 auto;min-width:105px;padding:13px 12px;border:1px solid #67819d;background:rgba(255,255,255,.065);border-radius:14px;color:#d0dce8;text-align:center;transition:.25s}.year-pill:hover{transform:translateY(-4px);border-color:#e2bc83}.year-pill[aria-selected="true"]{background:#e7c38d;border-color:#e7c38d;color:#19324c;box-shadow:0 10px 25px #00000030}.year-pill span{font:500 24px var(--heading);display:block}.year-pill small{display:block;font-size:10px;opacity:.84;margin-top:3px;white-space:nowrap}
+  .timeline-panel{min-height:340px;display:grid;grid-template-columns:1.13fr .87fr;align-items:stretch;overflow:hidden;border-radius:27px;border:1px solid #627b95;background:rgba(255,255,255,.075);backdrop-filter:blur(4px);box-shadow:0 20px 55px rgba(6,24,44,.15)}
+  .timeline-content{padding:50px 55px;display:flex;flex-direction:column;align-items:flex-start}.timeline-kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#edc991;font-weight:700;margin-bottom:9px}.timeline-content h3{font:400 clamp(32px,3.4vw,48px)/1.15 var(--heading);margin:0 0 18px}.timeline-content p{font-size:15px;line-height:1.85;color:#d7e3ee;margin:0;max-width:490px}.timeline-controls{display:flex;align-items:center;gap:9px;margin-top:auto;padding-top:29px}.circle-arrow{width:39px;height:39px;border:1px solid #7c96ad;border-radius:50%;background:transparent;color:#fff;font-size:20px;transition:.2s}.circle-arrow:hover{background:#e6bd86;color:#1c3651;border-color:#e6bd86}.panel-counter{font-size:12px;color:#bcd1e1;margin-left:10px}
+  .timeline-figure{position:relative;overflow:hidden;min-height:325px}.timeline-figure img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:center;filter:saturate(.85)}.timeline-figure:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#1e4367 0%,transparent 35%),linear-gradient(0deg,#16375370,transparent 52%)}
+  .landmarks{background:var(--paper)}.section-heading-row{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:38px}.section-count{font:italic 22px var(--heading);color:var(--gold-dark)}
+  .place-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}.place-card{background:var(--paper-2);border:1px solid var(--line);border-radius:21px;overflow:hidden;box-shadow:0 8px 35px rgba(31,52,77,.045);transition:transform .35s,box-shadow .35s}.place-card:hover{transform:translateY(-8px);box-shadow:var(--shadow)}.place-image{height:185px;overflow:hidden;background:#d7e9f6}.place-image img{width:100%;height:100%;object-fit:cover;transition:transform .65s}.place-card:hover .place-image img{transform:scale(1.075)}.place-content{padding:22px 19px 20px}.place-content .mini{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-dark);font-weight:750}.place-content h3{font:500 25px/1.1 var(--heading);margin:10px 0}.place-content p{font-size:12px;color:var(--muted);line-height:1.75;min-height:85px;margin:0 0 12px}.card-link{display:flex;align-items:center;justify-content:space-between;gap:5px;color:var(--ink);font-size:12px;font-weight:750;background:transparent;border:0;padding:0;width:100%;text-align:left}.card-link i{font-style:normal;display:grid;place-items:center;width:32px;height:32px;border:1px solid #e0bc86;border-radius:50%;color:var(--gold-dark);transition:background .25s,color .25s}.card-link:hover i{background:#d6ae7a;color:#fff}
+  .poet-section{background:var(--paper-2)}.poet-grid{display:grid;grid-template-columns:.88fr 1.12fr;gap:74px;align-items:center}.poet-art{border-radius:26px;overflow:hidden;background:#f2dfc9;box-shadow:var(--shadow);position:relative}.poet-art img{width:100%;height:400px;object-fit:cover;object-position:50% 45%;transition:transform .7s}.poet-art:hover img{transform:scale(1.045)}.poet-art:after{content:'';position:absolute;inset:55% 0 0;background:linear-gradient(transparent,#1b2f4770)}.poet-art-tag{position:absolute;z-index:2;bottom:24px;left:25px;color:#fff;font:italic 21px var(--heading)}.poet-copy p{color:var(--muted);line-height:1.85;font-size:16px}.poet-quote{padding:20px 25px;border-left:2px solid #c8a477;margin:25px 0 28px;font:italic 22px/1.45 var(--heading);color:var(--gold-dark)}
+  .facts-section{background:linear-gradient(180deg,var(--paper),var(--blue))}.facts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:37px}.fact{background:var(--paper-2);border-radius:19px;border:1px solid var(--line);padding:24px;min-height:200px}.fact-symbol{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:#eef2f5;color:#a77d53;font-size:23px;margin-bottom:19px}body.night .fact-symbol{background:#28445d}.fact h3{font:500 21px var(--heading);margin:0 0 8px}.fact p{font-size:12px;line-height:1.65;color:var(--muted);margin:0}
+  .closing{background:#13304e;color:#eef4fa;text-align:center;padding:75px 0 62px;position:relative;overflow:hidden}.closing:before,.closing:after{content:'';position:absolute;border:1px solid #b7a17a33;width:300px;height:300px;transform:rotate(45deg);border-radius:40px}.closing:before{left:-170px;top:-120px}.closing:after{right:-170px;bottom:-130px}.closing h2{font:400 clamp(33px,4vw,53px)/1.15 var(--heading);max-width:780px;margin:12px auto 13px}.closing p{font-size:14px;color:#c9d7e5}.closing .button{margin-top:18px}
+  footer{background:#0e243b;color:#aebed0;padding:23px 0;font-size:11px}.footer-grid{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.footer-grid a{color:#f1cd9a;text-decoration:underline;text-underline-offset:3px}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+  .modal{position:fixed;inset:0;z-index:60;display:none;place-items:center;padding:22px;background:rgba(12,31,49,.7);backdrop-filter:blur(9px)}.modal.open{display:grid;animation:fadein .25s ease}@keyframes fadein{from{opacity:0}to{opacity:1}}.modal-dialog{background:var(--paper-2);border-radius:23px;max-width:650px;width:100%;overflow:hidden;position:relative;box-shadow:0 28px 80px #0b1d33a0;animation:popin .3s ease}@keyframes popin{from{transform:translateY(18px) scale(.97);opacity:.3}to{transform:translateY(0) scale(1);opacity:1}}.modal-dialog img{height:250px;width:100%;object-fit:cover}.modal-body{padding:30px 34px 34px}.modal-body h2{font:400 39px var(--heading);margin:9px 0 13px}.modal-body p{color:var(--muted);font-size:15px;line-height:1.8}.modal-close{position:absolute;top:14px;right:14px;border:0;background:#fff;box-shadow:0 4px 20px #0003;width:38px;height:38px;border-radius:50%;font-size:24px;color:#273f55;display:grid;place-items:center}
+  .back-to-top{position:fixed;right:22px;bottom:22px;z-index:16;border:0;width:45px;height:45px;border-radius:50%;color:#223a50;background:#e7c18a;box-shadow:0 8px 20px #0003;font-size:22px;opacity:0;pointer-events:none;transform:translateY(10px);transition:.25s}.back-to-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+  @media(max-width:1050px){.navlinks{gap:15px}.hero h1{font-size:75px}.place-grid{grid-template-columns:repeat(2,1fr)}.place-image{height:210px}.place-content p{min-height:auto}.hero-visual{height:485px}.intro-grid,.poet-grid{gap:45px}}
+  @media(max-width:760px){.container{width:min(100% - 34px,580px)}.topbar{height:69px}.brand{font-size:20px}.brand svg{width:34px}.menu-btn{display:grid}.navlinks{position:absolute;top:69px;left:0;right:0;background:var(--paper-2);padding:16px 25px 25px;display:none;flex-direction:column;align-items:flex-start;gap:0;border-bottom:1px solid var(--line);box-shadow:0 15px 20px #00000012}.navlinks.open{display:flex}.navlinks a{display:block;width:100%;padding:13px 0;font-size:15px}.section{padding:75px 0}.hero{padding:118px 0 57px;min-height:auto}.hero-grid{grid-template-columns:1fr}.hero-copy{padding:0;order:1}.hero-label{margin-bottom:22px}.hero h1{font-size:clamp(57px,11vw,86px)}.hero-lead{font-size:15px;max-width:500px}.hero-visual{height:420px;max-width:500px;width:100%;margin:30px auto 0;order:2}.visual-frame{inset:9px 10px 15px 10px}.floating-note{left:-5px;top:60px}.floating-chip{right:-3px;bottom:40px}.hero-stats{margin-top:32px;gap:18px}.intro-grid,.poet-grid{grid-template-columns:1fr;gap:36px}.intro-media{max-width:560px}.intro-media:before{inset:16px -9px -15px 16px}.intro-media img{height:285px}.intro-quote{margin-top:21px}.timeline-rail{margin:25px 0 12px}.timeline-panel{grid-template-columns:1fr}.timeline-content{padding:30px 27px;min-height:325px}.timeline-figure{min-height:195px;max-height:210px}.timeline-figure:after{background:linear-gradient(0deg,#173d5a24,transparent)}.section-heading-row{align-items:flex-start;flex-direction:column;gap:0}.place-grid{gap:15px}.facts-grid{grid-template-columns:repeat(2,1fr)}.poet-art img{height:330px}.poet-copy p{font-size:15px}.closing{padding:65px 0}.ribbon .container{gap:12px}.ribbon span{font-size:9px;letter-spacing:.1em}}
+  @media(max-width:480px){.brand small{font-size:8px}.hero-visual{height:335px}.hero h1{font-size:58px}.hero-label{font-size:9px}.floating-note{padding:9px 12px;max-width:130px;border-radius:12px}.floating-note strong{font-size:23px}.floating-note span{font-size:9px}.floating-chip{padding:9px 12px;font-size:10px}.hero-stats{gap:10px}.hero-stat b{font-size:24px}.hero-stat small{font-size:10px}.stat-separator{height:30px}.ribbon span{font-size:8px}.section-title{font-size:38px}.place-grid{grid-template-columns:1fr}.place-image{height:220px}.place-content{padding:20px}.facts-grid{gap:10px}.fact{padding:17px;min-height:210px}.fact h3{font-size:18px}.timeline-content h3{font-size:34px}.timeline-content p{font-size:14px}.hero-buttons .button{min-height:48px;padding:12px 16px}.modal-dialog img{height:190px}.modal-body{padding:24px}.modal-body h2{font-size:32px}.footer-grid{gap:9px}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <header class="topbar" id="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="На главную — История Пятигорска">
+        <svg viewBox="0 0 64 42" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 33 19 11l11 14L40 5l22 28"/><path d="m11 21 8 4 7-6m8 0 6 5 7-4M3 39h58"/></svg>
+        <span>Пятигорск<small>Город больших историй</small></span>
+      </a>
+      <nav class="navlinks" id="navlinks" aria-label="Навигация по сайту">
+        <a href="#history">История</a><a href="#places">Места</a><a href="#lermontov">Лермонтов</a><a href="#facts">Факты</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="iconbtn" id="themeToggle" title="Переключить дневную и вечернюю тему" aria-label="Переключить тему" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20.5 14.1a9 9 0 0 1-10.6-10.6A9 9 0 1 0 20.5 14.1Z"/></svg>
+        </button>
+        <button class="iconbtn menu-btn" id="menuToggle" title="Меню" aria-label="Открыть меню" aria-expanded="false" aria-controls="navlinks">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <span class="petal" style="left:78%;top:8%;width:13px;height:16px;--duration:11s"></span>
+      <span class="petal" style="left:92%;top:24%;width:9px;height:12px;--duration:8s;animation-delay:-2s"></span>
+      <span class="petal" style="left:62%;top:16%;width:10px;height:13px;--duration:13s;animation-delay:-6s"></span>
+      <span class="petal" style="left:99%;top:4%;width:10px;height:15px;--duration:10s;animation-delay:-5s"></span>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal visible">
+          <div class="hero-label"><span class="star">✧</span> Путешествие сквозь время</div>
+          <h1>История<br/>Пятигорска <em>в сердце Кавказа</em></h1>
+          <p class="hero-lead">Город, где горы хранят легенды, целебные источники дарят вдохновение, а каждая улица рассказывает свою историю.</p>
+          <div class="hero-buttons">
+            <a class="button primary" href="#history">Начать путешествие <span aria-hidden="true">↗</span></a>
+            <a class="button ghost" href="#places">Знаковые места <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-stats" aria-label="Исторические даты">
+            <div class="hero-stat"><b>1780</b><small>год основания</small></div><span class="stat-separator"></span>
+            <div class="hero-stat"><b>1830</b><small>статус города</small></div><span class="stat-separator"></span>
+            <div class="hero-stat"><b>∞</b><small>историй и легенд</small></div>
+          </div>
+        </div>
+        <div class="hero-visual reveal visible">
+          <div class="visual-glow"></div>
+          <div class="visual-frame"><img src="assets/hero.webp" alt="Аниме-иллюстрация путешественницы на фоне Пятигорска и Кавказских гор" fetchpriority="high" /></div>
+          <div class="floating-note"><strong>Кавказские</strong><span>Минеральные Воды<br/>Место силы и вдохновения</span></div>
+          <div class="floating-chip"><span>✦</span> История рядом</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ribbon" aria-hidden="true"><div class="container"><span>Горы</span><span class="ornament">✧</span><span>Традиции</span><span class="ornament">✧</span><span>Истории</span><span class="ornament">✧</span><span>Вдохновение</span></div></div>
+
+    <section class="section intro white-bg" id="about">
+      <div class="container intro-grid">
+        <div class="reveal">
+          <div class="eyebrow">01 / знакомство с городом</div>
+          <h2 class="section-title">Город у подножия <em>легенд</em></h2>
+          <p class="section-description">Пятигорск — один из известных городов Кавказских Минеральных Вод. Его история соединяет старинные курортные традиции, удивительную природу и культуру, связанную с именем Михаила Лермонтова.</p>
+          <p class="section-description" style="margin-top:16px">Здесь прогулка превращается в маленькое путешествие во времени: от архитектуры XIX века до видов на гору Машук.</p>
+          <p class="intro-quote">«У каждого города есть голос. У Пятигорска он звучит ветром с гор».</p>
+        </div>
+        <div class="intro-media reveal"><img src="assets/overview.webp" loading="lazy" alt="Аниме-пейзаж: историческая беседка Пятигорска и горы на горизонте"></div>
+      </div>
+    </section>
+
+    <section class="section timeline-section" id="history">
+      <div class="container">
+        <div class="reveal"><div class="eyebrow">02 / страницы времени</div><h2 class="section-title">Как всё начиналось</h2><p class="section-description">Нажми на год, чтобы открыть новую главу истории города. Лента времени интерактивная!</p></div>
+        <div class="timeline-rail reveal" role="tablist" aria-label="Этапы истории Пятигорска" id="timelineRail">
+          <button class="year-pill" role="tab" aria-selected="true" aria-controls="timelineDescription" data-index="0"><span>1780</span><small>Основание</small></button>
+          <button class="year-pill" role="tab" aria-selected="false" aria-controls="timelineDescription" data-index="1"><span>1803</span><small>Начало курорта</small></button>
+          <button class="year-pill" role="tab" aria-selected="false" aria-controls="timelineDescription" data-index="2"><span>1820-е</span><small>Архитектура</small></button>
+          <button class="year-pill" role="tab" aria-selected="false" aria-controls="timelineDescription" data-index="3"><span>1830</span><small>Имя города</small></button>
+          <button class="year-pill" role="tab" aria-selected="false" aria-controls="timelineDescription" data-index="4"><span>1841</span><small>Лермонтов</small></button>
+          <button class="year-pill" role="tab" aria-selected="false" aria-controls="timelineDescription" data-index="5"><span>1894</span><small>Железная дорога</small></button>
+          <button class="year-pill" role="tab" aria-selected="false" aria-controls="timelineDescription" data-index="6"><span>XX век</span><small>Здравница</small></button>
+          <button class="year-pill" role="tab" aria-selected="false" aria-controls="timelineDescription" data-index="7"><span>2010</span><small>Новый статус</small></button>
+        </div>
+        <div class="timeline-panel reveal" id="timelineDescription" role="tabpanel" aria-live="polite">
+          <div class="timeline-content"><div class="timeline-kicker" id="eraLabel">1780 · Глава первая</div><h3 id="eraTitle">У истоков города</h3><p id="eraText">У Бештовых гор появилась Константиногорская крепость. 1780 год принято считать датой основания Пятигорска — будущего знаменитого города-курорта.</p><div class="timeline-controls"><button type="button" class="circle-arrow" id="prevEra" aria-label="Предыдущая историческая дата">←</button><button type="button" class="circle-arrow" id="nextEra" aria-label="Следующая историческая дата">→</button><span class="panel-counter" id="eraCount">01 / 08</span></div></div>
+          <div class="timeline-figure"><img id="eraImage" src="assets/fort.webp" alt="Аниме-иллюстрация старинной крепости" loading="lazy" /></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section landmarks" id="places">
+      <div class="container">
+        <div class="section-heading-row reveal"><div><div class="eyebrow">03 / места с характером</div><h2 class="section-title">Достопримечательности</h2><p class="section-description">Четыре локации, которые помогают почувствовать атмосферу Пятигорска.</p></div><div class="section-count">✦ Открой свою историю</div></div>
+        <div class="place-grid">
+          <article class="place-card reveal"><div class="place-image"><img src="assets/mashuk.webp" alt="Аниме-пейзаж горы Машук" loading="lazy" /></div><div class="place-content"><div class="mini">Природа / Панорамы</div><h3>Гора Машук</h3><p>Символ города, с которого открываются захватывающие виды на Пятигорск и горные окрестности.</p><button class="card-link" data-place="mashuk" aria-label="Подробнее о горе Машук">Узнать историю <i>↗</i></button></div></article>
+          <article class="place-card reveal"><div class="place-image"><img src="assets/proval.webp" alt="Аниме-иллюстрация озера Провал в пещере" loading="lazy" /></div><div class="place-content"><div class="mini">Природа / Источники</div><h3>Озеро Провал</h3><p>Необычная природная пещера с подземным озером бирюзового цвета и своей историей.</p><button class="card-link" data-place="proval" aria-label="Подробнее об озере Провал">Узнать историю <i>↗</i></button></div></article>
+          <article class="place-card reveal"><div class="place-image"><img src="assets/gallery.webp" alt="Аниме-иллюстрация Лермонтовской галереи" loading="lazy" /></div><div class="place-content"><div class="mini">Архитектура / Культура</div><h3>Галерея</h3><p>Лермонтовская галерея — одно из самых узнаваемых исторических зданий курортного города.</p><button class="card-link" data-place="gallery" aria-label="Подробнее о Лермонтовской галерее">Узнать историю <i>↗</i></button></div></article>
+          <article class="place-card reveal"><div class="place-image"><img src="assets/park.webp" alt="Аниме-иллюстрация парка Цветник" loading="lazy" /></div><div class="place-content"><div class="mini">Прогулки / История</div><h3>Парк «Цветник»</h3><p>Историческое место прогулок, где старинные аллеи соседствуют с курортной архитектурой.</p><button class="card-link" data-place="park" aria-label="Подробнее о парке Цветник">Узнать историю <i>↗</i></button></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section poet-section white-bg" id="lermontov">
+      <div class="container poet-grid">
+        <div class="poet-art reveal"><img src="assets/lermontov.webp" alt="Художественный аниме-образ Михаила Юрьевича Лермонтова" loading="lazy"/><span class="poet-art-tag">М. Ю. Лермонтов · 1814–1841</span></div>
+        <div class="poet-copy reveal"><div class="eyebrow">04 / город и поэт</div><h2 class="section-title">Пятигорск и <em>Лермонтов</em></h2><p>Имя Михаила Юрьевича Лермонтова неразрывно связано с Кавказом и Пятигорском. Здесь поэт бывал, находил вдохновение в пейзажах и наблюдал жизнь курортного общества.</p><p>В 1841 году его жизнь трагически оборвалась на дуэли у подножия Машука. Сегодня память о поэте сохраняют музей, памятники и литературные маршруты города.</p><div class="poet-quote">Город, где история встречается с поэзией.</div><a class="button primary" href="#history">Вернуться к истории <span aria-hidden="true">↑</span></a></div>
+      </div>
+    </section>
+
+    <section class="section facts-section" id="facts">
+      <div class="container"><div class="reveal"><div class="eyebrow">05 / знать и удивляться</div><h2 class="section-title">Маленькие факты — <em>большая история</em></h2><p class="section-description">Несколько штрихов к портрету города, в который хочется возвращаться.</p></div>
+        <div class="facts-grid">
+          <div class="fact reveal"><div class="fact-symbol">♜</div><h3>История с 1780 года</h3><p>Начало истории города связывают с Константиногорской крепостью.</p></div>
+          <div class="fact reveal"><div class="fact-symbol">♨</div><h3>Целебные воды</h3><p>Минеральные источники стали основой знаменитого курорта.</p></div>
+          <div class="fact reveal"><div class="fact-symbol">△</div><h3>Гора Машук</h3><p>Один из главных природных символов и популярных видов Пятигорска.</p></div>
+          <div class="fact reveal"><div class="fact-symbol">✧</div><h3>Город культуры</h3><p>Историческая архитектура и память о Лермонтове придают ему особое очарование.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing"><div class="container reveal"><div class="eyebrow" style="color:#e9c18b">Конец страницы — начало путешествия</div><h2>Пятигорск — город истории, гор и вдохновения</h2><p>Каждая прогулка здесь может стать новой главой твоей истории.</p><a class="button primary" href="#home">Вернуться к началу ↑</a></div></section>
+  </main>
+
+  <footer><div class="container footer-grid"><div>© 2026 · История Пятигорска · Авторский аниме-лендинг</div><div>Исторические сведения: <a href="https://www.pyatigorsk.online/about/history/" target="_blank" rel="noopener noreferrer">Туристско-информационный центр</a> · <a href="https://stavregion.ru/region/municipal/rayons/pyatigorsk/" target="_blank" rel="noopener noreferrer">Правительство Ставропольского края</a></div></div></footer>
+
+  <button type="button" class="back-to-top" id="toTop" aria-label="Наверх">↑</button>
+  <div class="modal" id="placeModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true"><div class="modal-dialog"><button class="modal-close" id="closeModal" type="button" aria-label="Закрыть окно">×</button><img id="modalImage" src="assets/mashuk.webp" alt=""/><div class="modal-body"><div class="eyebrow">Места Пятигорска</div><h2 id="modalTitle"></h2><p id="modalText"></p><button class="button primary" type="button" id="modalDone">Продолжить путешествие →</button></div></div></div>
+
+  <script>
+  (() => {
+    const eras=[
+      {year:'1780',chapter:'Глава первая',title:'У истоков города',description:'У Бештовых гор появилась Константиногорская крепость. 1780 год принято считать датой основания Пятигорска — будущего знаменитого города-курорта.',image:'fort.webp',alt:'Художественная иллюстрация крепости'},
+      {year:'1803',chapter:'Глава вторая',title:'Рождение курорта',description:'Указ Александра I придал Кавказским Минеральным Водам особое государственное значение. С этого времени начинается важный этап развития местных целебных источников и курортного дела.',image:'alexander.webp',alt:'Стилизованный портрет императора Александра I'},
+      {year:'1820-е',chapter:'Глава третья',title:'Город обретает облик',description:'Архитекторы братья Бернардацци участвуют в создании узнаваемого курортного облика: появляются общественные здания, ванны, сады и прогулочные пространства.',image:'bernardazzi.webp',alt:'Исторические курортные постройки'},
+      {year:'1830',chapter:'Глава четвёртая',title:'Имя — Пятигорск',description:'Посёлок Горячие Воды получает официальный статус города и название Пятигорск. Начинается новая глава его городской истории.',image:'city1830.webp',alt:'Вид на Пятигорск в горах'},
+      {year:'1841',chapter:'Глава пятая',title:'Лермонтов и Машук',description:'У подножия горы Машук состоялась роковая дуэль Михаила Лермонтова. В городе бережно хранят память о поэте, связанном с Кавказом своей жизнью и творчеством.',image:'poet1841.webp',alt:'Аниме-образ поэта Михаила Лермонтова'},
+      {year:'1894',chapter:'Глава шестая',title:'Приходит железная дорога',description:'Железнодорожное сообщение связывает Пятигорск с крупной транспортной сетью через Минеральные Воды. Курорт становится доступнее путешественникам.',image:'rail1894.webp',alt:'Паровоз на старинной железной дороге'},
+      {year:'XX век',chapter:'Глава седьмая',title:'Век курортного развития',description:'Пятигорск развивается как один из крупнейших центров Кавказских Минеральных Вод. Строятся и обновляются санатории, культурные учреждения и городские пространства.',image:'sanatorium.webp',alt:'Курортная архитектура Пятигорска'},
+      {year:'2010',chapter:'Глава восьмая',title:'Новая роль города',description:'Пятигорск становится административным центром Северо-Кавказского федерального округа, продолжая хранить свою курортную и культурную историю.',image:'modern2010.webp',alt:'Современная архитектура Пятигорска'}
+    ];
+    const places={
+      mashuk:{title:'Гора Машук',image:'mashuk.webp',alt:'Аниме-вид на гору Машук',text:'Машук — гора, без которой невозможно представить Пятигорск. С её склонов видны город и окрестные вершины, а многочисленные исторические маршруты связывают это место с событиями XIX века, в том числе с памятью о Михаиле Лермонтове.'},
+      proval:{title:'Озеро Провал',image:'proval.webp',alt:'Аниме-иллюстрация озера Провал',text:'Провал — естественная карстовая пещера с подземным минеральным озером. Старинная достопримечательность привлекала исследователей, путешественников и курортников. Особый оттенок воды создаёт незабываемый вид.'},
+      gallery:{title:'Лермонтовская галерея',image:'gallery.webp',alt:'Иллюстрация Лермонтовской галереи',text:'Лермонтовская галерея расположена в исторической курортной зоне Пятигорска. Её ажурная архитектура стала узнаваемым символом города; сегодня галерея связана с концертной и культурной жизнью.'},
+      park:{title:'Парк «Цветник»',image:'park.webp',alt:'Аниме-иллюстрация парка Цветник',text:'«Цветник» — один из самых известных исторических парков Пятигорска. В XIX веке здесь формировалась курортная среда для прогулок и встреч. Сегодня парк сохраняет атмосферу старого города.'}
+    };
+    const $=(s)=>document.querySelector(s), $$=(s)=>Array.from(document.querySelectorAll(s));
+    const imageSrc=(filename)=>window.__embeddedImages?.[filename]||`assets/${filename}`;
+    let active=0;
+    function selectEra(index,moveFocus=false){
+      active=(index+eras.length)%eras.length;const era=eras[active];
+      $('#eraLabel').textContent=`${era.year} · ${era.chapter}`;$('#eraTitle').textContent=era.title;$('#eraText').textContent=era.description;
+      $('#eraImage').src=imageSrc(era.image);$('#eraImage').alt=era.alt;$('#eraCount').textContent=`${String(active+1).padStart(2,'0')} / 08`;
+      $$('.year-pill').forEach((b,i)=>{b.setAttribute('aria-selected',String(i===active));b.tabIndex=i===active?0:-1;});
+      const selected=$(`.year-pill[data-index="${active}"]`);selected.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'nearest',inline:'nearest'});
+      if(moveFocus)selected.focus({preventScroll:true});
+    }
+    $$('.year-pill').forEach(b=>{b.addEventListener('click',()=>selectEra(Number(b.dataset.index)));b.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();selectEra(active+(e.key==='ArrowRight'?1:-1),true)}else if(e.key==='Home'){e.preventDefault();selectEra(0,true)}else if(e.key==='End'){e.preventDefault();selectEra(7,true)}})});
+    $('#prevEra').addEventListener('click',()=>selectEra(active-1));$('#nextEra').addEventListener('click',()=>selectEra(active+1));
+    const modal=$('#placeModal');let restoreFocus=null;
+    function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';if(restoreFocus)restoreFocus.focus()}
+    $$('.card-link').forEach(button=>button.addEventListener('click',()=>{const item=places[button.dataset.place];restoreFocus=button;$('#modalTitle').textContent=item.title;$('#modalText').textContent=item.text;$('#modalImage').src=imageSrc(item.image);$('#modalImage').alt=item.alt;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('#closeModal').focus()}));
+    $('#closeModal').addEventListener('click',closeModal);$('#modalDone').addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+    document.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='Escape')closeModal();if(e.key==='Tab'){const controls=Array.from(modal.querySelectorAll('button'));const i=controls.indexOf(document.activeElement);if(e.shiftKey&&i===0){e.preventDefault();controls[controls.length-1].focus()}else if(!e.shiftKey&&i===controls.length-1){e.preventDefault();controls[0].focus()}}});
+    const menu=$('#navlinks'),menuToggle=$('#menuToggle');menuToggle.addEventListener('click',()=>{const opened=menu.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(opened));menuToggle.setAttribute('aria-label',opened?'Закрыть меню':'Открыть меню')});$$('.navlinks a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');menuToggle.setAttribute('aria-expanded','false')}));
+    const theme=$('#themeToggle');try{if(localStorage.getItem('pyatigorsk-theme')==='night')document.body.classList.add('night')}catch(e){}
+    function syncTheme(){const isNight=document.body.classList.contains('night');theme.setAttribute('aria-pressed',String(isNight));theme.title=isNight?'Включить дневной режим':'Включить вечерний режим';theme.innerHTML=isNight?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20.5 14.1a9 9 0 0 1-10.6-10.6A9 9 0 1 0 20.5 14.1Z"/></svg>'}
+    syncTheme();theme.addEventListener('click',()=>{document.body.classList.toggle('night');syncTheme();try{localStorage.setItem('pyatigorsk-theme',document.body.classList.contains('night')?'night':'day')}catch(e){}});
+    const topButton=$('#toTop');function onScroll(){const y=window.scrollY;$('#topbar').classList.toggle('scrolled',y>24);topButton.classList.toggle('show',y>560)}window.addEventListener('scroll',onScroll,{passive:true});onScroll();topButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'}));
+    if('IntersectionObserver' in window){const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -20px 0px'});$$('.reveal:not(.visible)').forEach(el=>io.observe(el))}else{$$('.reveal').forEach(el=>el.classList.add('visible'))}
+  })();
+  </script>
+</body>
+</html>
